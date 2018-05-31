@@ -7,7 +7,7 @@ pipeline {
         DIBA_ETL = "/var/www/gobierto-etl-diba/current/"
         GOBIERTO = "/var/www/gobierto_staging/current/"
         DIBA_ID = "diba"
-        WORKING_DIR="/tmp/diba"
+        WORKING_DIR="${WORKING_DIR}"
     }
     stages {
         stage('Extract > Download data sources') {
@@ -20,10 +20,10 @@ pipeline {
         }
         stage('Extract > Check JSON format') {
             steps {
-                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb /tmp/diba/budgets-2016-income.jsonr"
-                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb /tmp/diba/budgets-2017-income.jsonr"
-                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb /tmp/diba/budgets-2016-expenses.json"
-                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb /tmp/diba/budgets-2017-expenses.json"
+                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb ${WORKING_DIR}/budgets-2016-income.jsonr"
+                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb ${WORKING_DIR}/budgets-2017-income.jsonr"
+                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb ${WORKING_DIR}/budgets-2016-expenses.json"
+                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb ${WORKING_DIR}/budgets-2017-expenses.json"
             }
         }
         stage('Load > Remove previous data') {
@@ -33,14 +33,14 @@ pipeline {
         }
         stage('Load > Import income data') {
             steps {
-              sh "cd ${GOBIERTO}; bin/rails runner ${DIBA_ETL}/operations/gobierto_budgets/import-budgets/run.rb /tmp/diba/budgets-2016-income.json 2016"
-              sh "cd ${GOBIERTO}; bin/rails runner ${DIBA_ETL}/operations/gobierto_budgets/import-budgets/run.rb /tmp/diba/budgets-2017-income.json 2017"
+              sh "cd ${GOBIERTO}; bin/rails runner ${DIBA_ETL}/operations/gobierto_budgets/import-budgets/run.rb ${WORKING_DIR}/budgets-2016-income.json 2016"
+              sh "cd ${GOBIERTO}; bin/rails runner ${DIBA_ETL}/operations/gobierto_budgets/import-budgets/run.rb ${WORKING_DIR}/budgets-2017-income.json 2017"
             }
         }
         stage('Load > Import expenses data') {
             steps {
-              sh "cd ${GOBIERTO}; bin/rails runner ${DIBA_ETL}/operations/gobierto_budgets/import-budgets/run.rb /tmp/diba/budgets-2016-expenses.json 2016"
-              sh "cd ${GOBIERTO}; bin/rails runner ${DIBA_ETL}/operations/gobierto_budgets/import-budgets/run.rb /tmp/diba/budgets-2017-expenses.json 2017"
+              sh "cd ${GOBIERTO}; bin/rails runner ${DIBA_ETL}/operations/gobierto_budgets/import-budgets/run.rb ${WORKING_DIR}/budgets-2016-expenses.json 2016"
+              sh "cd ${GOBIERTO}; bin/rails runner ${DIBA_ETL}/operations/gobierto_budgets/import-budgets/run.rb ${WORKING_DIR}/budgets-2017-expenses.json 2017"
             }
         }
         stage('Load > Calculate totals') {
