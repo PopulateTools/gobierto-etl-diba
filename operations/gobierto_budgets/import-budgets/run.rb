@@ -44,7 +44,7 @@ module Diba
     end
 
     def import!
-      areas = [GobiertoBudgets::EconomicArea, GobiertoBudgets::CustomArea]
+      areas = [GobiertoBudgets::EconomicArea]
       areas << GobiertoBudgets::FunctionalArea if @data.kind == GobiertoData::GobiertoBudgets::EXPENSE
 
       indices = [
