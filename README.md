@@ -1,6 +1,6 @@
-# Gobierto ETL for Mataro
+# Gobierto ETL for DiBa
 
-ETL scripts for Gobierto Diba site
+ETL scripts for Gobierto DiBa site
 
 ## Setup
 
@@ -10,11 +10,7 @@ This repository relies heavily in [gobierto_data](https://github.com/PopulateToo
 
 ## Available operations
 
-- clean-quotes
-- transform-planned
-- transform-executed
-- transform-planned-updated
-- import-planned-budgets
-- import-executed-budgets
-- import-planned-budgets-updated
+- clear-budgets
+- import-budgets
+- import-providers
 

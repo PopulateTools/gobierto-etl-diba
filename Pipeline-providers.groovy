@@ -7,7 +7,7 @@ pipeline {
         DIBA_ETL = "/var/www/gobierto-etl-diba/current/"
         GOBIERTO = "/var/www/gobierto_staging/current/"
         DIBA_ID = "diba"
-        WORKING_DIR="${WORKING_DIR}"
+        WORKING_DIR="/tmp/diba"
     }
     stages {
         stage('Extract > Download data sources') {

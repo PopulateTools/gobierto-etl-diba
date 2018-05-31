@@ -7,7 +7,7 @@ pipeline {
         DIBA_ETL = "/var/www/gobierto-etl-diba/current/"
         GOBIERTO = "/var/www/gobierto_staging/current/"
         DIBA_ID = "diba"
-        WORKING_DIR="${WORKING_DIR}"
+        WORKING_DIR="/tmp/diba"
     }
     stages {
         stage('Extract > Download data sources') {
@@ -20,8 +20,8 @@ pipeline {
         }
         stage('Extract > Check JSON format') {
             steps {
-                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb ${WORKING_DIR}/budgets-2016-income.jsonr"
-                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb ${WORKING_DIR}/budgets-2017-income.jsonr"
+                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb ${WORKING_DIR}/budgets-2016-income.json"
+                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb ${WORKING_DIR}/budgets-2017-income.json"
                 sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb ${WORKING_DIR}/budgets-2016-expenses.json"
                 sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/check-json/run.rb ${WORKING_DIR}/budgets-2017-expenses.json"
             }
