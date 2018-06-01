@@ -15,7 +15,7 @@ cd $DEV/gobierto-etl-utils/; ruby operations/check-json/run.rb /tmp/diba/budgets
 # Load > Remove previous data
 cd $DEV/gobierto-etl-diba/; ruby operations/gobierto_budgets/clear-budgets/run.rb diba
 
-# # Load > Import income data
+# Load > Import income data
 cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-diba/operations/gobierto_budgets/import-budgets/run.rb /tmp/diba/budgets-2016-income.json 2016
 cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-diba/operations/gobierto_budgets/import-budgets/run.rb /tmp/diba/budgets-2017-income.json 2017
 
@@ -35,3 +35,6 @@ cd $DEV/gobierto/; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto_
 
 # Load > Publish activity
 cd $DEV/gobierto/; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/publish-activity/run.rb budgets_updated /tmp/diba/organization.id.txt
+
+# Load > Clear cache
+cd $DEV/gobierto/; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/clear-cache/run.rb
