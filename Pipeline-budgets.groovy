@@ -28,7 +28,8 @@ pipeline {
         }
         stage('Load > Remove previous data') {
             steps {
-                sh "cd ${DIBA_ETL}; ruby operations/gobierto_budgets/clear-budgets/run.rb ${DIBA_ID}"
+              sh "echo ${DIBA_ID} > ${WORKING_DIR}/organization.id.txt"
+                sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/gobierto_budgets/clear-budgets/run.rb ${WORKING_DIR}/organization_id.txt"
             }
         }
         stage('Load > Import income data') {
@@ -45,7 +46,6 @@ pipeline {
         }
         stage('Load > Calculate totals') {
             steps {
-              sh "echo ${DIBA_ID} > ${WORKING_DIR}/organization.id.txt"
               sh "cd ${GOBIERTO_ETL_UTILS}; ruby operations/gobierto_budgets/update_total_budget/run.rb '2016 2017' ${WORKING_DIR}/organization.id.txt"
             }
         }

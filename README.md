@@ -10,7 +10,6 @@ This repository relies heavily in [gobierto_data](https://github.com/PopulateToo
 
 ## Available operations
 
-- clear-budgets
 - import-budgets
 - import-providers
 

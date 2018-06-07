@@ -13,7 +13,7 @@ cd $DEV/gobierto-etl-utils/; ruby operations/check-json/run.rb /tmp/diba/budgets
 cd $DEV/gobierto-etl-utils/; ruby operations/check-json/run.rb /tmp/diba/budgets-2017-expenses.json
 
 # Load > Remove previous data
-cd $DEV/gobierto-etl-diba/; ruby operations/gobierto_budgets/clear-budgets/run.rb diba
+cd $DEV/gobierto-etl-utils/; ruby operations/gobierto_budgets/clear-budgets/run.rb diba
 
 # Load > Import income data
 cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-diba/operations/gobierto_budgets/import-budgets/run.rb /tmp/diba/budgets-2016-income.json 2016
