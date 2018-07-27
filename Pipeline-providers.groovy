@@ -38,8 +38,8 @@ pipeline {
         }
         stage('Load > Publish activity') {
             steps {
-              sh "echo ${DIBA_ID} > ${WORKING_DIR}/organization.id.txt"
-              sh "cd ${GOBIERTO}; bin/rails runner ${GOBIERTO_ETL_UTILS}/operations/gobierto/publish-activity/run.rb budgets_updated ${WORKING_DIR}/organization.id.txt"
+              sh "echo ${DIBA_ID} > ${WORKING_DIR}/organization_id.txt"
+              sh "cd ${GOBIERTO}; bin/rails runner ${GOBIERTO_ETL_UTILS}/operations/gobierto/publish-activity/run.rb budgets_updated ${WORKING_DIR}/organization_id.txt"
             }
         }
     }

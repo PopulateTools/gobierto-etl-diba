@@ -36,17 +36,17 @@ cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-diba/operations/gobierto_bu
 cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-diba/operations/gobierto_budgets/import-budgets/run.rb /tmp/diba/budgets-2017-expenses.json 2018
 
 # Load > Calculate totals
-echo "diba" > /tmp/diba/organization.id.txt
-cd $DEV/gobierto-etl-utils/; ruby operations/gobierto_budgets/update_total_budget/run.rb "2015 2016 2017 2018" /tmp/diba/organization.id.txt
+echo "diba" > /tmp/diba/organization_id.txt
+cd $DEV/gobierto-etl-utils/; ruby operations/gobierto_budgets/update_total_budget/run.rb "2015 2016 2017 2018" /tmp/diba/organization_id.txt
 
 # Load > Calculate bubbles
-cd $DEV/gobierto-etl-utils/; ruby operations/gobierto_budgets/bubbles/run.rb /tmp/diba/organization.id.txt
+cd $DEV/gobierto-etl-utils/; ruby operations/gobierto_budgets/bubbles/run.rb /tmp/diba/organization_id.txt
 
 # Load > Calculate annual data
-cd $DEV/gobierto/; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto_budgets/annual_data/run.rb "2015 2016 2017 2018" /tmp/diba/organization.id.txt
+cd $DEV/gobierto/; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto_budgets/annual_data/run.rb "2015 2016 2017 2018" /tmp/diba/organization_id.txt
 
 # Load > Publish activity
-cd $DEV/gobierto/; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/publish-activity/run.rb budgets_updated /tmp/diba/organization.id.txt
+cd $DEV/gobierto/; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/publish-activity/run.rb budgets_updated /tmp/diba/organization_id.txt
 
 # Load > Clear cache
 cd $DEV/gobierto/; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/clear-cache/run.rb

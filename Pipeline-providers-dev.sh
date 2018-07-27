@@ -19,8 +19,8 @@ cd $DEV/gobierto-etl-diba/; ruby operations/gobierto_budgets/import-providers/ru
 cd $DEV/gobierto-etl-diba/; ruby operations/gobierto_budgets/import-providers/run.rb diba /tmp/diba/providers_2017.json
 
 # Load > Publish activity
-echo "diba" > /tmp/mataro/organization.id.txt
-cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/publish-activity/run.rb providers_updated /tmp/mataro/organization.id.txt
+echo "diba" > /tmp/mataro/organization_id.txt
+cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/publish-activity/run.rb providers_updated /tmp/mataro/organization_id.txt
 
 # Load > Clear cache
 cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/clear-cache/run.rb
