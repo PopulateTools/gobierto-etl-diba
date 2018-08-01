@@ -28,20 +28,11 @@ organization_id = ARGV[0].to_s
 data_file = ARGV[1]
 index_request_body = []
 
-def parse_diba_date(d)
-  date = Date.strptime(d, "%d%m%Y")
-  if date.year == 17
-    Date.parse("2017-#{date.month}-#{date.day}")
-  else
-    date
-  end
+def parse_diba_date(year)
+  return Date.new(year, 12, 1)
 rescue ArgumentError
-  date = Date.strptime("0" + d, "%d%m%Y")
-  if date.year == 17
-    Date.parse("2017-#{date.month}-#{date.day}")
-  else
-    date
-  end
+  puts $!
+  puts year
 end
 
 puts "[START] import-providers/run.rb data_file=#{data_file}"
@@ -58,7 +49,7 @@ base_attributes = {
 data = JSON.parse(File.read(data_file))
 data['elements'].each do |item|
   begin
-    date = parse_diba_date(item['data_com'])
+    date = parse_diba_date(item['exercici'])
     attributes = base_attributes.merge({
       value: item['sum'].tr('.', '').to_f,
       date: date.strftime("%Y-%m-%d"),
@@ -67,7 +58,7 @@ data['elements'].each do |item|
       provider_id: item['nif'].try(:strip),
       provider_name: item['nom_tercer'].try(:strip),
       paid: true,
-      subject: item['text_tercer'].try(:strip),
+      subject: item['denom_aplic'].try(:strip),
       freelance: item['nif'] !~ /\A[A-Z]/i,
       economic_budget_line_code: nil,
       functional_budget_line_code: nil,
