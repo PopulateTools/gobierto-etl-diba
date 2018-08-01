@@ -29,7 +29,7 @@ data_file = ARGV[1]
 index_request_body = []
 
 def parse_diba_date(year)
-  return Date.new(year, 12, 1)
+  return Date.new(year.to_i, 12, 1)
 rescue ArgumentError
   puts $!
   puts year
