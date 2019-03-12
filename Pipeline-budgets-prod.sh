@@ -2,6 +2,10 @@
 
 set -e
 
+# Reset working dir
+rm -rf /tmp/diba
+mkdir /tmp/diba
+
 DEV=/var/www/
 
 # Set organization_id
