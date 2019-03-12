@@ -9,24 +9,20 @@ Bundler.require
 #
 # Arguments:
 #
-#  - 0: Organization ID
-#  - 1: Absolute path to a file containing a CSV of providers
+#  - 0: Absolute path to a file containing a CSV of providers
+#  - 1: Absolute path to a transformed file
 #
 # Samples:
 #
-#   /path/to/project/operations/gobierto_budgets/import-providers/run.rb 8019 input.json
+#   ruby operations/gobierto_budgets/transform-providers/run.rb input.json output.json
 #
 
 if ARGV.length != 2
   raise "At least one argument is required"
 end
 
-index = GobiertoData::GobiertoBudgets::ES_INDEX_POPULATE_DATA_PROVIDERS
-type =  GobiertoData::GobiertoBudgets::POPULATE_DATA_PROVIDERS_TYPE
-
-organization_id = ARGV[0].to_s
-data_file = ARGV[1]
-index_request_body = []
+data_file = ARGV[0]
+output_file = ARGV[1]
 
 def parse_diba_date(year)
   return Date.new(year.to_i, 12, 31)
@@ -35,11 +31,11 @@ rescue ArgumentError
   puts year
 end
 
-puts "[START] import-providers/run.rb data_file=#{data_file}"
+puts "[START] transform-providers/run.rb data_file=#{data_file}"
 
 nitems = 0
 
-index_request_body = []
+output_data = []
 base_attributes = {
   location_id: "diba",
   province_id: nil,
@@ -65,13 +61,12 @@ data['elements'].each do |item|
     })
 
     nitems += 1
-    id = [attributes[:location_id], date.year, attributes[:invoice_id]].join('/')
-    index_request_body << {index: {_id: id, data: attributes}}
+    output_data << attributes.merge(base_attributes)
   rescue ArgumentError
     puts item
   end
 end
 
-GobiertoData::GobiertoBudgets::SearchEngine.client.bulk index: index, type: type, body: index_request_body
+File.write(output_file, output_data.to_json)
 
-puts "[END] import-providers/run.rb imported #{nitems} items"
+puts "[END] transform-providers/run.rb imported #{nitems} items"
