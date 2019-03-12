@@ -72,7 +72,7 @@ module Diba
       total_results = total_results.uniq
       uniq_total_count = total_results.count
 
-      GobiertoData::GobiertoBudgets::SearchEngine.client.bulk( body: total_results.uniq)
+      GobiertoData::GobiertoBudgets::SearchEngineWriting.client.bulk( body: total_results.uniq)
       puts "=== Loaded #{ total_results.count } entries. #{ total_count - uniq_total_count } duplicated."
     end
   end
