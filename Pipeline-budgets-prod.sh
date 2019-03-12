@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 DEV=/var/www/
 
 # Set organization_id
