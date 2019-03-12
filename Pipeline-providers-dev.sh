@@ -17,7 +17,7 @@ cd $DEV/gobierto-etl-utils/; ruby operations/check-json/run.rb /tmp/diba/provide
 cd $DEV/gobierto-etl-utils/; ruby operations/check-json/run.rb /tmp/diba/providers_2017.json
 
 # Load > Remove previous data
-cd $DEV/gobierto-etl-utils/; ruby operations/gobierto_budgets/clear-previous-providers/run.rb diba
+cd $DEV/gobierto-etl-diba/; ruby operations/gobierto_budgets/clear-previous-providers/run.rb diba
 
 # Load > Load providers and invoices data
 cd $DEV/gobierto-etl-diba/; ruby operations/gobierto_budgets/transform-providers/run.rb /tmp/diba/providers_2015.json /tmp/diba/providers_2015_transformed.json
