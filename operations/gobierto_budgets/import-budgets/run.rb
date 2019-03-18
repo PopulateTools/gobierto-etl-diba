@@ -57,12 +57,17 @@ module Diba
       areas.each do |area|
         indices.each do |index|
           result = @data.budgets_for(area, index)
+          # Remove levels > 3
+          result.delete_if{ |i| i[:index][:data][:level] > 3 }
           total_results = total_results + result
         end
 
         if @data.kind == GobiertoData::GobiertoBudgets::EXPENSE
           index = GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST
           if (partition_result = @data.economic_partitions_for(area, index))
+            # Remove levels > 3
+            partition_result.delete_if{ |i| i[:index][:data][:level] > 3 }
+
             total_results = total_results + partition_result
           end
         end
