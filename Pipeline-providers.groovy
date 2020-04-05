@@ -2,7 +2,7 @@ email = "popu-servers+jenkins@populate.tools "
 pipeline {
     agent any
     environment {
-        PATH = "/home/ubuntu/.rbenv/shims:$PATH"
+        PATH = "$HOME/.rbenv/shims:$PATH"
         GOBIERTO_ETL_UTILS = "/var/www/gobierto-etl-utils/current/"
         DIBA_ETL = "/var/www/gobierto-etl-diba/current/"
         GOBIERTO = "/var/www/gobierto_staging/current/"
