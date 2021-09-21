@@ -9,6 +9,9 @@ pipeline {
         DIBA_ID = "diba"
         WORKING_DIR="/tmp/diba"
     }
+    options {
+        retry(3)
+    }
     stages {
         stage('Extract > Download data sources') {
             steps {
