@@ -3,15 +3,15 @@
 class BudgetDataDecorator < BaseDecorator
   CODE_REGEXP = /(?<lv1>\A.)(?<lv2>.)(?<lv3>.)(?<lv4>..\z)/
   INDEXES_MAP = {
-    ::GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST => %w(ci),
-    ::GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED => %w(cf),
-    ::GobiertoData::GobiertoBudgets::ES_INDEX_EXECUTED => %w(o dr)
+    ::GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_FORECAST => %w[ci],
+    ::GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED => %w[cf],
+    ::GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_EXECUTED => %w[o dr]
   }.freeze
 
   def self.detect_kind(kind_name)
     {
-      "Ingressos" => ::GobiertoData::GobiertoBudgets::INCOME,
-      "Despeses" => ::GobiertoData::GobiertoBudgets::EXPENSE
+      'Ingressos' => ::GobiertoBudgetsData::GobiertoBudgets::INCOME,
+      'Despeses' => ::GobiertoBudgetsData::GobiertoBudgets::EXPENSE
     }[kind_name]
   end
 

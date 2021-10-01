@@ -45,12 +45,12 @@ module Diba
 
     def import!
       areas = [GobiertoBudgets::EconomicArea]
-      areas << GobiertoBudgets::FunctionalArea if @data.kind == GobiertoData::GobiertoBudgets::EXPENSE
+      areas << GobiertoBudgets::FunctionalArea if @data.kind == GobiertoBudgetsData::GobiertoBudgets::EXPENSE
 
       indices = [
-        GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST,
-        GobiertoData::GobiertoBudgets::ES_INDEX_EXECUTED,
-        GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_FORECAST,
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_EXECUTED,
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED
       ]
 
       total_results = []
@@ -62,8 +62,8 @@ module Diba
           total_results = total_results + result
         end
 
-        if @data.kind == GobiertoData::GobiertoBudgets::EXPENSE
-          index = GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST
+        if @data.kind == GobiertoBudgetsData::GobiertoBudgets::EXPENSE
+          index = GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_FORECAST
           if (partition_result = @data.economic_partitions_for(area, index))
             # Remove levels > 3
             partition_result.delete_if{ |i| i[:index][:data][:level] > 3 }
@@ -77,8 +77,8 @@ module Diba
       total_results = total_results.uniq
       uniq_total_count = total_results.count
 
-      GobiertoData::GobiertoBudgets::SearchEngineWriting.client.bulk( body: total_results.uniq)
-      puts "=== Loaded #{ total_results.count } entries. #{ total_count - uniq_total_count } duplicated."
+      GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk(body: total_results.uniq)
+      puts "=== Loaded #{total_results.count} entries. #{total_count - uniq_total_count} duplicated."
     end
   end
 end
