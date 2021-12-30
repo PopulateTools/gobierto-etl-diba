@@ -34,4 +34,4 @@ echo "diba" > /tmp/diba/organization_id.txt
 cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/publish-activity/run.rb providers_updated /tmp/diba/organization_id.txt
 
 # Load > Clear cache
-cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/clear-cache/run.rb
+cd $DEV/gobierto; bin/rails runner $DEV/gobierto-etl-utils/operations/gobierto/clear-cache/run.rb --site-organization-id "diba" --namespace "GobiertoBudgets"

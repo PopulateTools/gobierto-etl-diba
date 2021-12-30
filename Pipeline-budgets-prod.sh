@@ -68,4 +68,4 @@ cd $DEV/gobierto/current/; bin/rails runner $DEV/gobierto-etl-utils/current/oper
 cd $DEV/gobierto/current/; bin/rails runner $DEV/gobierto-etl-utils/current/operations/gobierto/publish-activity/run.rb budgets_updated /tmp/diba/organization_id.txt
 
 # Load > Clear cache
-cd $DEV/gobierto/current/; bin/rails runner $DEV/gobierto-etl-utils/current/operations/gobierto/clear-cache/run.rb
+cd $DEV/gobierto/current/; bin/rails runner $DEV/gobierto-etl-utils/current/operations/gobierto/clear-cache/run.rb --site-organization-id "diba" --namespace "GobiertoBudgets"
